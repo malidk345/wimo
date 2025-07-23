@@ -24,6 +24,15 @@ function wim_register_menus() {
 }
 add_action( 'after_setup_theme', 'wim_register_menus' );
 
+function wim_fallback_menu() {
+    echo '<ul id="primary-menu" class="menu">';
+    echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">Ana Sayfa</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/category/teknoloji/' ) ) . '">Teknoloji</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/category/yazilar/' ) ) . '">Yazılar</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/hakkimda/' ) ) . '">Hakkımda</a></li>';
+    echo '</ul>';
+}
+
 function wim_enqueue_theme_scripts() {
     wp_enqueue_script( 'wim-script', get_template_directory_uri() . '/script.js', array(), null, true );
 }
