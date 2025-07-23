@@ -118,7 +118,7 @@ pre, code, kbd, samp {
 
 /* Navigation ve menü */
 .main-navigation {
-  display: none !important;
+  display: none;
 }
 #menuToggle {
   display: flex;
@@ -472,6 +472,24 @@ pre, code, kbd, samp {
   .main-navigation ul {
     flex-direction: column;
     gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .main-navigation ul li {
+    margin: 0;
+    padding: 0;
+  }
+  .main-navigation ul li a {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: background-color 0.2s ease;
+  }
+  .main-navigation ul li a:hover {
+    background-color: rgba(255,255,255,0.1);
   }
   .header-icons {
     margin-left: auto;
@@ -481,9 +499,46 @@ pre, code, kbd, samp {
   #menuToggle {
     display: none;
   }
+  .site-header {
+    flex-direction: column;
+    padding: 0;
+  }
+  .container.header-flex {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8rem 1.2rem;
+  }
   .main-navigation {
     position: static;
     display: flex !important;
+    background: none;
+    border: none;
+    width: 100%;
+    justify-content: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid #eee;
+  }
+  .main-navigation ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+  .main-navigation ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--wim-primary);
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.2s ease;
+    font-weight: 500;
+  }
+  .main-navigation ul li a:hover {
+    color: var(--wim-secondary);
+    background: none;
   }
 } 
 

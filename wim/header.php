@@ -38,6 +38,18 @@
             <button class="icon-btn" id="menuToggle" aria-label="menu" aria-expanded="false" aria-controls="mainNav" tabindex="0"><span class="icon-menu"></span></button>
         </div>
     </div>
+    <nav class="main-navigation" id="mainNav" aria-label="Ana Menü">
+        <?php
+        wp_nav_menu( array(
+            'theme_location' => 'menu-1',
+            'menu_id'        => 'primary-menu',
+            'container'      => false,
+            'fallback_cb'    => function() {
+                echo '<ul><li><a href="' . esc_url( home_url( '/' ) ) . '">Ana Sayfa</a></li></ul>';
+            }
+        ) );
+        ?>
+    </nav>
 </header>
 <div class="toast" id="wimToast" role="status" aria-live="polite"></div>
 <div class="search-modal" id="searchModal" tabindex="-1" aria-modal="true" role="dialog" aria-label="search modal" style="display:none;">
@@ -53,9 +65,13 @@
 // Hamburger menü aç/kapa
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
-menuToggle.addEventListener('click', function() {
-  mainNav.classList.toggle('open');
-});
+if(menuToggle && mainNav) {
+  menuToggle.addEventListener('click', function() {
+    mainNav.classList.toggle('open');
+    var expanded = mainNav.classList.contains('open');
+    menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  });
+}
 // Profil menüsü aç/kapa
 const profileBtn = document.getElementById('profileBtn');
 const profileDropdown = document.getElementById('profileDropdown');
