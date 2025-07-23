@@ -15,16 +15,6 @@ get_header();
     if ( $query->have_posts() ) :
         while ( $query->have_posts() ) : $query->the_post(); ?>
             <div class="reddit-post">
-                <?php if ( has_post_thumbnail() ) : ?>
-                    <div class="reddit-thumb">
-                        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
-                    </div>
-                <?php endif; ?>
-                <div class="reddit-vote">
-                    <button class="vote-btn up" aria-label="upvote">▲</button>
-                    <span class="vote-count">0</span>
-                    <button class="vote-btn down" aria-label="downvote">▼</button>
-                </div>
                 <div class="reddit-content">
                     <div class="reddit-meta">
                         <span class="reddit-category category-color cat-<?php if($cat){ echo esc_attr($cat[0]->slug); } ?>">
@@ -38,6 +28,16 @@ get_header();
                     </div>
                     <a href="<?php the_permalink(); ?>" class="reddit-title"><?php echo strtolower(get_the_title()); ?></a>
                     <div class="reddit-excerpt"><?php echo strtolower(get_the_excerpt()); ?></div>
+                    <?php if ( has_post_thumbnail() ) : ?>
+                        <div class="reddit-thumb">
+                            <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('medium'); ?></a>
+                        </div>
+                    <?php endif; ?>
+                    <div class="reddit-vote">
+                        <button class="vote-btn up" aria-label="upvote">▲</button>
+                        <span class="vote-count">0</span>
+                        <button class="vote-btn down" aria-label="downvote">▼</button>
+                    </div>
                 </div>
             </div>
         <?php endwhile;
