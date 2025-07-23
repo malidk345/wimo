@@ -34,9 +34,21 @@ get_header();
                         </div>
                     <?php endif; ?>
                     <div class="reddit-vote">
-                        <button class="vote-btn up" aria-label="upvote">▲</button>
-                        <span class="vote-count">0</span>
-                        <button class="vote-btn down" aria-label="downvote">▼</button>
+                        <div class="reddit-actions-left">
+                            <button class="action-btn like-btn" aria-label="like">
+                                <span>♥</span>
+                                <span class="action-count">0</span>
+                            </button>
+                            <button class="action-btn comment-btn" aria-label="comments">
+                                <span>💬</span>
+                                <span class="action-count"><?php echo get_comments_number(); ?></span>
+                            </button>
+                        </div>
+                        <div class="reddit-actions-right">
+                            <button class="action-btn share-btn" aria-label="share">
+                                <span>📤</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
