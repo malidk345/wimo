@@ -1,45 +1,71 @@
-<?php
-// Wim Theme - archive.php
-get_header();
-?>
-<main id="main" class="site-main">
-    <h1 class="front-title">archive</h1>
-    <div class="reddit-feed">
+<?php get_header(); ?>
+
+<div class="archive-header">
     <?php
-    if ( have_posts() ) :
-        while ( have_posts() ) : the_post(); ?>
-            <div class="reddit-post">
-                <div class="reddit-content">
-                    <div class="reddit-meta">
-                        <span class="reddit-category category-color cat-<?php if($cat){ echo esc_attr($cat[0]->slug); } ?>">
-                            <span class="cat-dot"></span><?php $cat = get_the_category(); if($cat){ echo strtolower(esc_html($cat[0]->name)); } ?>
-                        </span>
-                        <span class="reddit-date"><?php echo strtolower(get_the_date('M j, Y')); ?></span>
-                        <span class="reddit-author">by <?php the_author(); ?></span>
-                        <span class="reddit-comments">
-                            <?php echo get_comments_number(); ?> comments
-                        </span>
+    the_archive_title('<h1 class="archive-title">', '</h1>');
+    the_archive_description('<div class="archive-description">', '</div>');
+    ?>
+</div>
+
+<?php if (have_posts()) : ?>
+    <div class="posts-feed">
+        <?php while (have_posts()) : the_post(); ?>
+            <article id="post-<?php the_ID(); ?>" <?php post_class('post-card'); ?>>
+                <div class="post-header">
+                    <div class="post-meta">
+                        <span class="post-author"><?php the_author(); ?></span>
+                        <span class="post-date"><?php echo get_the_date(); ?></span>
                     </div>
-                    <a href="<?php the_permalink(); ?>" class="reddit-title"><?php echo strtolower(get_the_title()); ?></a>
-                    <div class="reddit-excerpt"><?php echo strtolower(get_the_excerpt()); ?></div>
-                    <?php if ( has_post_thumbnail() ) : ?>
-                        <div class="reddit-thumb">
-                            <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('medium'); ?></a>
+                    
+                    <h2 class="post-title">
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </h2>
+                    
+                    <?php if (has_excerpt()) : ?>
+                        <div class="post-excerpt">
+                            <?php the_excerpt(); ?>
                         </div>
                     <?php endif; ?>
-                    <div class="reddit-vote">
-                        <button class="vote-btn up" aria-label="upvote">▲</button>
-                        <span class="vote-count">0</span>
-                        <button class="vote-btn down" aria-label="downvote">▼</button>
+                </div>
+                
+                <?php if (has_post_thumbnail()) : ?>
+                    <div class="post-thumbnail">
+                        <a href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail('medium'); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="post-footer">
+                    <div class="post-categories">
+                        <?php
+                        $categories = get_the_category();
+                        if ($categories) {
+                            foreach ($categories as $category) {
+                                echo '<a href="' . esc_url(get_category_link($category->term_id)) . '" class="post-category">' . esc_html($category->name) . '</a>';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
-            </div>
-        <?php endwhile;
-    else :
-        echo '<p>no posts found.</p>';
-    endif;
-    ?>
+            </article>
+        <?php endwhile; ?>
     </div>
-</main>
-<?php
-get_footer(); 
+    
+    <?php
+    // Pagination
+    the_posts_pagination(array(
+        'mid_size'  => 2,
+        'prev_text' => '← Önceki',
+        'next_text' => 'Sonraki →',
+    ));
+    ?>
+    
+<?php else : ?>
+    <div class="no-posts">
+        <h2>Bu kategoride henüz yazı bulunmuyor</h2>
+        <p>Başka bir kategori seçin veya ana sayfaya dönün.</p>
+    </div>
+<?php endif; ?>
+
+<?php get_footer(); ?> 
